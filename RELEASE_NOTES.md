@@ -1,8 +1,65 @@
 This file holds "in progress" release notes for the current release under development and is intended for consumption by the Chef Documentation team. Please see <https://docs.chef.io/release_notes.html> for the official Chef release notes.
 
-# UNRELEASED
+# Chef Infra Client 15.8
 
-### sysctl now accepts a comments parameter
+## New Cookbook Helpers
+
+New helpers have been added to make writing cookbook easier.
+
+### Windows Helpers
+
+New helpers for checking versions on Windows have been added.
+
+* `windows_nt_version` returns the NT kernel version, which often differs from Microsoft's marketing versions. This helper offers a good way to find desktop and server releases that are based on the same codebase. For example NT 6.3 is both Windows 8.1 and Windows 2012 R2.
+* `powershell_version` returns the version of PowerShell installed on the system. Both of these helpers return parsed version strings so there's no need to convert them to Integers of Floats before using them.
+
+Example comparison using windows_nt_version:
+
+```ruby
+if windows_nt_version >= 10
+  some_modern_windows_things
+end
+```
+
+### Cloud Helpers
+
+The cloud helpers from chef-sugar have been ported to Chef Infra Client
+
+* `cloud?` - if the node is running in any cloud, including internal clouds
+* `ec2?` - if the node is running in ec2
+* `gce?` - if the node is running in gce
+* `rackspace?` - if the node is running in rackspace
+* `eucalyptus?` - if the node is running under eucalyptus
+* `linode?` - if the node is running in linode
+* `openstack?` - if the node is running under openstack
+* `azure?` - if the node is running in azure
+* `digital_ocean?` - if the node is running in digital ocean
+* `softlayer?` - if the node is running in softlayer
+
+### include_recipe? helper
+
+chef-sugar's `include_recipe?` has been added to Chef Infra Client, providing a simple way to see if a recipe has been included on a node already.
+
+Example usage in a not_if conditional:
+
+```ruby
+execute 'install my_app'
+  command '/tmp/my_app_install.sh'
+  not_if { include_recipe?('my_app::install') }
+end
+```
+
+## Updated Resources
+
+### ifconfig
+
+The `ifconfig` resource now supports the newer `ifconfig` release that ships in Debian 10.
+
+### mac_user
+
+The `mac_user` resource used when creating a user on Mac systems has been improved to better work with macOS Catalina (10.15). The resource now properly looks up the numeric GID when creating a user, once again supports the `system` property, and includes a new `hidden` property which prevents the user from showing on the login screen. Thanks [@chilcote](https://github.com/chilcote) for these fixes and improvements.
+
+### sysctl
 
 The `sysctl` resource has been updated to allow the inclusion of descriptive comments. Comments may be passed as an array or as a string. Any comments provided are prefixed with '#' signs and precede the `sysctl` setting in generated files.
 
