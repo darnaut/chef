@@ -36,6 +36,27 @@ The cloud helpers from chef-sugar have been ported to Chef Infra Client
 * `digital_ocean?` - if the node is running in digital ocean
 * `softlayer?` - if the node is running in softlayer
 
+### Virtualization Helpers
+
+The virtualization helpers from chef-sugar have been ported to Chef Infra Client and extended with helpers to detect hypervisor hosts, physical, and guest systems.
+
+* `kvm?` - if the node is a kvm guest
+* `kvm_host?` - if the node is a kvm host
+* `lxc?` - if the node is an lxc guest
+* `lxc_host?` - if the node is an lxc host
+* `parallels?`- if the node is a parallels guest
+* `parallels_host?`- if the node is a parallels host
+* `vbox?` - if the node is a virtualbox guest
+* `vbox_host?` - if the node is a virtualbox host
+* `vmware?` - if the node is a vmware guest
+* `vmware_host?` - if the node is a vmware host
+* `openvz?` - if the node is an openvz guest
+* `openvz_host?` - if the node is an openvz host
+* `guest?` - if the node is detected as any kind of guest
+* `hypervisor?` - if the node is detected as being any kind of hypervisor
+* `physical?` - the node is not running as a guest (may be a hypervisor or may be bare-metal)
+* `vagrant?` - attempts to identify the node as a vagrant guest (this check may be error prone)
+
 ### include_recipe? helper
 
 chef-sugar's `include_recipe?` has been added to Chef Infra Client, providing a simple way to see if a recipe has been included on a node already.
