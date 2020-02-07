@@ -24,7 +24,7 @@ end
 
 ### Cloud Helpers
 
-The cloud helpers from chef-sugar have been ported to Chef Infra Client
+The cloud helpers from chef-sugar have been ported to Chef Infra Client:
 
 * `cloud?` - if the node is running in any cloud, including internal clouds
 * `ec2?` - if the node is running in ec2
